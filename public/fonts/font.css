@@ -1,0 +1,36 @@
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 200;
+	src:
+		local('Nunito ExtraLight'),
+		local('Nunito-ExtraLight'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA-seUYevI.woff2 */
+		url('/fonts/Nunito_200.woff2') format('woff2'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA-seUYevO.woff */
+		url('/fonts/Nunito_200.woff') format('woff'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA-seUYevM.eot */
+		url('/fonts/Nunito_200.eot?#iefix') format('embedded-opentype'),
+		/* from https://fonts.gstatic.com/l/font?kit=XRXW3I6Li01BKofA-seUYevP&skey=8ad0032e0b847aa6&v=v12#Nunito */
+		url('/fonts/Nunito_200.svg#Nunito') format('svg'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA-seUYevN.ttf */
+		url('/fonts/Nunito_200.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 600;
+	src:
+		local('Nunito SemiBold'),
+		local('Nunito-SemiBold'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA6sKUYevI.woff2 */
+		url('/fonts/Nunito_600.woff2') format('woff2'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA6sKUYevO.woff */
+		url('/fonts/Nunito_600.woff') format('woff'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA6sKUYevM.eot */
+		url('/fonts/Nunito_600.eot?#iefix') format('embedded-opentype'),
+		/* from https://fonts.gstatic.com/l/font?kit=XRXW3I6Li01BKofA6sKUYevP&skey=52e177ab83d749aa&v=v12#Nunito */
+		url('/fonts/Nunito_600.svg#Nunito') format('svg'),
+		/* from https://fonts.gstatic.com/s/nunito/v12/XRXW3I6Li01BKofA6sKUYevN.ttf */
+		url('/fonts/Nunito_600.ttf') format('truetype');
+}
