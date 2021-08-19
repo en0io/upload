@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
 
-    <title>en0</title>
+    <title>en0 Upload</title>
 
     <link href="/fonts/font.css" rel="stylesheet">
 
