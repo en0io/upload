@@ -21,4 +21,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('login/gitlab', 'GitLabAuthentication@gitlabLogin')->name('login');
+Route::get('login/gitlab/callback', 'GitLabAuthentication@handlegitlabCallback');
+
 require __DIR__.'/auth.php';
