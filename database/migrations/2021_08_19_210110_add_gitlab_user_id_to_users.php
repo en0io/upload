@@ -14,7 +14,7 @@ class AddGitlabUserIdToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('gitlab_id');
+            $table->bigInteger('gitlab_id')->unsigned();
         });
     }
 
