@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Files extends Model
 {
     use HasFactory;
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
