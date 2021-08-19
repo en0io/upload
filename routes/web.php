@@ -23,5 +23,7 @@ Route::get('/dashboard', function () {
 
 Route::get('login/gitlab', 'GitLabAuthentication@gitlabLogin')->name('login');
 Route::get('login/gitlab/callback', 'GitLabAuthentication@handlegitlabCallback');
+Route::get('logout', 'GitLabAuthentication@logout')->name('logout');
+
 
 require __DIR__.'/auth.php';
