@@ -54,35 +54,40 @@
                     Files
                 </div>
                 <div class="card-body">
-                    <table class="table-bordered">
-                        <thead>
-                        <tr>
-                            <td>Filename</td>
-                            <td>Expires</td>
-                            <td>Downloads left</td>
-                            <td>Actions</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($Files as $File)
+                    @if($Files->count())
 
+                        <table class="table-bordered">
+                            <thead>
                             <tr>
-                                <td>{{$File->filename}}</td>
-                                <td class="time-to-moment">{{Carbon\Carbon::parse($File->expires_at)->diffForHumans();}}</td>
-                                <td>{{$File->remaining_downloads}}</td>
-                                <td>
-                                    <i class="bi bi-clipboard copylink"
-                                       data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"></i>
-                                    <a onclick="return confirm('Are you sure?')"
-                                       href="{{URL::signedRoute('userDeleteFile', ['fileuuid' => $File->file_uuid])}}"><i
-                                            class="bi bi-trash-fill"></i></a>
-                                </td>
+                                <td>Filename</td>
+                                <td>Expires</td>
+                                <td>Downloads left</td>
+                                <td>Actions</td>
                             </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($Files as $File)
+
+                                <tr>
+                                    <td>{{$File->filename}}</td>
+                                    <td class="time-to-moment">{{Carbon\Carbon::parse($File->expires_at)->diffForHumans();}}</td>
+                                    <td>{{$File->remaining_downloads}}</td>
+                                    <td>
+                                        <i class="bi bi-clipboard copylink"
+                                           data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"></i>
+                                        <a onclick="return confirm('Are you sure?')"
+                                           href="{{URL::signedRoute('userDeleteFile', ['fileuuid' => $File->file_uuid])}}"><i
+                                                class="bi bi-trash-fill"></i></a>
+                                    </td>
+                                </tr>
 
 
-                        @endforeach
-                        </tbody>
-                    </table>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>You have no files.</p>
+                    @endif
                 </div>
             </div>
 
