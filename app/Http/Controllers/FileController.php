@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Files;
@@ -13,11 +12,10 @@ class FileController extends Controller
 {
     public function processUpload(Request $request)
     {
-        if (!is_numeric($request->expirytime))
-            abort(400);
-        if (!is_numeric($request->maxdownloads))
-            abort(400);
+
         if (Auth::check()) {
+            if (!is_numeric($request->expirytime) && !is_numeric($request->maxdownloads) && $request->expirytime>300 && $request->expirytime<=604800 )
+                abort(400);
             $path = $request->file('filetoupload')->store('uploads');
 
             $expiry = new \DateTime();

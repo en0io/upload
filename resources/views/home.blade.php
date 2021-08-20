@@ -27,7 +27,6 @@
                         <div class="form-group">
                             <label class="form-group-label" for="expirytime">File expiry time</label>
                             <select name="expirytime" id="expirytime">
-                                <option value="30">30 seconds</option>
                                 <option value="3600">1 hour</option>
                                 <option value="14400">4 hours</option>
                                 <option value="43200">12 hours</option>
@@ -59,7 +58,7 @@
                         <thead>
                         <tr>
                             <td>Filename</td>
-                            <td>Expiry</td>
+                            <td>Expires</td>
                             <td>Downloads left</td>
                             <td>Actions</td>
                         </tr>
@@ -69,7 +68,7 @@
 
                             <tr>
                                 <td>{{$File->filename}}</td>
-                                <td class="time-to-moment">{{$File->expires_at}}</td>
+                                <td class="time-to-moment">{{Carbon\Carbon::parse($File->expires_at)->diffForHumans();}}</td>
                                 <td>{{$File->remaining_downloads}}</td>
                                 <td>
                                     <i class="bi bi-clipboard copylink"
