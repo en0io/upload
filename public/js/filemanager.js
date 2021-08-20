@@ -8,7 +8,7 @@ $(document).ready(function () {
                     if (evt.lengthComputable) {
                         var percentComplete = ((evt.loaded / evt.total) * 100);
                         $(".progress-bar").width(percentComplete + '%');
-                        $(".progress-bar").html(Math.round(percentComplete*100)/100 + '%');
+                        $(".progress-bar").html(Math.round(percentComplete * 100) / 100 + '%');
                     }
                 }, false);
                 return xhr;
@@ -47,6 +47,10 @@ $(".copylink").click(function () {
     $(".target-copynotification-filename").html($(this).data('filename'));
     $(".target-copynotification-toast").toast('show');
 });
-$(".action-delete-file").click(function (){
-    confirm('Are you sure you want to delete '+$(this).data('filename')+'?')
+$(".action-delete-file").click(function () {
+    if (confirm('Are you sure you want to delete ' + $(this).data('filename') + '?')) {
+        return true;
+    } else {
+        return false;
+    }
 });
