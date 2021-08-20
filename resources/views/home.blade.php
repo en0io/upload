@@ -73,7 +73,7 @@
                                     <td class="time-to-moment">{{Carbon\Carbon::parse($File->expires_at)->diffForHumans();}}</td>
                                     <td>{{$File->remaining_downloads}}</td>
                                     <td>
-                                        <i class="bi bi-clipboard copylink"
+                                        <i class="bi bi-clipboard copylink" title="click to copy download URL"
                                            data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"></i>
                                         <a onclick="return confirm('Are you sure?')"
                                            href="{{URL::signedRoute('userDeleteFile', ['fileuuid' => $File->file_uuid])}}"><i
