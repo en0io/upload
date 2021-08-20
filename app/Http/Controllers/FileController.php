@@ -14,25 +14,28 @@ class FileController extends Controller
     {
 
         if (Auth::check()) {
-            if (!is_numeric($request->expirytime) && !is_numeric($request->maxdownloads) && $request->expirytime>300 && $request->expirytime<=604800 )
+            if (!is_numeric($request->expirytime) && !is_numeric($request->maxdownloads) && $request->expirytime > 300 && $request->expirytime <= 604800)
                 abort(400);
-            $path = $request->file('filetoupload')->store('uploads');
+            if ($path = $request->file('filetoupload')->store('uploads')) {
 
-            $expiry = new \DateTime();
-            $expiry->modify('+ ' . $request->expirytime . ' seconds')->format('Y-m-d H:i:s');
+                $expiry = new \DateTime();
+                $expiry->modify('+ ' . $request->expirytime . ' seconds')->format('Y-m-d H:i:s');
 
 
-            $file = new Files;
-            $file->remaining_downloads = $request->maxdownloads;
-            $file->expires_at = $expiry;
-            $file->path = $path;
-            $file->user_id = auth()->id();
-            $file->filename = $request->file('filetoupload')->getClientOriginalName();
-            $file->file_uuid = Str::uuid();
-            $file->download_key = Str::uuid();
-            $file->filesize = Storage::size($path);
-            $file->save();
-            echo 'ok';
+                $file = new Files;
+                $file->remaining_downloads = $request->maxdownloads;
+                $file->expires_at = $expiry;
+                $file->path = $path;
+                $file->user_id = auth()->id();
+                $file->filename = $request->file('filetoupload')->getClientOriginalName();
+                $file->file_uuid = Str::uuid();
+                $file->download_key = Str::uuid();
+                $file->filesize = Storage::size($path);
+                $file->save();
+                echo 'ok';
+            } else {
+                echo "err";
+            }
         }
     }
 
@@ -82,7 +85,7 @@ class FileController extends Controller
         if (!$request->hasValidSignature()) {
             abort(401);
         }
-        $File = Files::where('file_uuid', '=', $fileuuid)->where('user_id','=',auth()->id())->firstOrFail();
+        $File = Files::where('file_uuid', '=', $fileuuid)->where('user_id', '=', auth()->id())->firstOrFail();
         Storage::delete($File->path);
         $File->delete();
         return back();
@@ -98,8 +101,6 @@ class FileController extends Controller
             $File->delete();
         }
     }
-
-
 
 
 }
