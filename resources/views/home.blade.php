@@ -41,7 +41,7 @@
                             <input type="number" max="100" min="1" name="maxdownloads" id="max-ownloads" value="10">
                         </div>
                         <div class="progress" id="upload-progress">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%"
+                            <div class="progress-bar progress-bar-striped text-center text-dark bg-success font-weight-bold" role="progressbar" style="width: 0%"
                                  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <input type="submit">

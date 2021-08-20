@@ -8,7 +8,7 @@ $(document).ready(function () {
                     if (evt.lengthComputable) {
                         var percentComplete = ((evt.loaded / evt.total) * 100);
                         $(".progress-bar").width(percentComplete + '%');
-                        $(".progress-bar").html(percentComplete + '%');
+                        $(".progress-bar").html(Math.round(percentComplete*100)/100 + '%');
                     }
                 }, false);
                 return xhr;
