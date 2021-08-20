@@ -44,4 +44,9 @@ $(document).ready(function () {
 
 $(".copylink").click(function () {
     navigator.clipboard.writeText($(this).data('url'));
+    $(".target-copynotification-filename").html($(this).data('filename'));
+    $(".target-copynotification-toast").toast('show');
+});
+$(".action-delete-file").click(function (){
+    confirm('Are you sure you want to delete '+$(this).data('filename')+'?')
 });
