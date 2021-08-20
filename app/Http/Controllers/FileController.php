@@ -82,7 +82,7 @@ class FileController extends Controller
         if (!$request->hasValidSignature()) {
             abort(401);
         }
-        $File = Files::where('file_uuid', '=', $fileuuid)->firstOrFail();
+        $File = Files::where('file_uuid', '=', $fileuuid)->where('user_id','=',auth()->id())->firstOrFail();
         Storage::delete($File->path);
         $File->delete();
         return back();
@@ -98,6 +98,8 @@ class FileController extends Controller
             $File->delete();
         }
     }
+
+
 
 
 }
