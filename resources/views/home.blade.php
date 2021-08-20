@@ -67,7 +67,6 @@
                             </thead>
                             <tbody>
                             @foreach($Files as $File)
-
                                 <tr>
                                     <td>{{$File->filename}}</td>
                                     <td class="time-to-moment">{{Carbon\Carbon::parse($File->expires_at)->diffForHumans();}}</td>
@@ -80,8 +79,6 @@
                                                 class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
-
-
                             @endforeach
                             </tbody>
                         </table>
@@ -90,12 +87,6 @@
                     @endif
                 </div>
             </div>
-
-
         </div>
-
-
-
-
     @endauth
 @endsection
