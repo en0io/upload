@@ -68,7 +68,7 @@
                             <tbody>
                             @foreach($Files as $File)
                                 <tr>
-                                    <td>{{$File->filename}}</td>
+                                    <td>{{$File->filename}} <span class="text-right"> ({{round($File->filesize/1000/1000,2)}} MB)</span></td>
                                     <td class="time-to-moment">{{Carbon\Carbon::parse($File->expires_at)->diffForHumans();}}</td>
                                     <td>{{$File->remaining_downloads}}</td>
                                     <td>
