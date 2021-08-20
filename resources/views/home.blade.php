@@ -72,7 +72,11 @@
                                 <td class="time-to-moment">{{$File->expires_at}}</td>
                                 <td>{{$File->remaining_downloads}}</td>
                                 <td>
-                                    <i class="bi bi-clipboard copylink" data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"></i>
+                                    <i class="bi bi-clipboard copylink"
+                                       data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"></i>
+                                    <a onclick="return confirm('Are you sure?')"
+                                       href="{{URL::signedRoute('userDeleteFile', ['fileuuid' => $File->file_uuid])}}"><i
+                                            class="bi bi-trash-fill"></i></a>
                                 </td>
                             </tr>
 

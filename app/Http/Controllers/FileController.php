@@ -81,7 +81,13 @@ class FileController extends Controller
 
     public function userDeleteFile($fileuuid, Request $request)
     {
-
+        if (!$request->hasValidSignature()) {
+            abort(401);
+        }
+        $File = Files::where('file_uuid', '=', $fileuuid)->firstOrFail();
+        Storage::delete($File->path);
+        $File->delete();
+        return back();
 
     }
 
