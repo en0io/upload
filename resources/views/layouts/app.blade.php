@@ -134,7 +134,7 @@
 
     <hr>
     <footer class="flex-center">
-
+        <a href="mailto:contact@en0.io">contact@en0.io</a>
     </footer>
 </div>
 
