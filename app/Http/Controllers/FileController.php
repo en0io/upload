@@ -44,10 +44,11 @@ class FileController extends Controller
         $now = new \DateTime();
         $file = Files::where('file_uuid', '=', $fileuuid)->where('download_key', '=', $filekey)->firstOrFail();
         if ($file->expires_at <= $now && $file->remaining_downloads >= 1) {
-
-            $file->remaining_downloads = $file->remaining_downloads - 1;
-            $file->save();
-
+            //Only count a download if it is not owned by the current user
+            if (auth()->id() != $file->user_id) {
+                $file->remaining_downloads = $file->remaining_downloads - 1;
+                $file->save();
+            }
             if ($file->remaining_downloads == 0) {
                 $file->delete();
                 return Storage::download($file->path, $file->filename);

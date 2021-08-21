@@ -79,6 +79,8 @@
                                            data-filename="{{$File->filename}}"
                                            data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}
                                                "></i>
+                                        <a href="{{route('processdownload', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"><i class="bi bi-download"></i>
+                                        </a>
                                         <a class="action-delete-file"
                                            href="{{URL::signedRoute('userDeleteFile', ['fileuuid' => $File->file_uuid])}}"
                                            data-filename="{{$File->filename}}"><i
