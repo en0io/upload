@@ -51,33 +51,35 @@ class FileController extends Controller
     {
         $now = new \DateTime(); // get the current timestamp
         $file = Files::where('file_uuid', '=', $fileuuid)->where('download_key', '=', $filekey)->firstOrFail(); // query the database for a file that matches the file's UUID and download key
-        if ($file->expires_at <= $now && $file->remaining_downloads >= 1) {
-            //Only count a download if it is not owned by the current user
-            if (auth()->id() != $file->user_id) {
-                $file->remaining_downloads = $file->remaining_downloads - 1;
-                $file->save();
+        if ($file->expires_at <= $now && $file->remaining_downloads >= 1) { // if the file hasn't expired yet and has downloads remaining
+            if (auth()->id() != $file->user_id) { // if the file is not owned by the current user
+                $file->remaining_downloads = $file->remaining_downloads - 1; // subtract 1 from the count of available downloads
+                $file->save(); // commit file to metadata database
             }
-            if ($file->remaining_downloads == 0) {
-                $file->delete();
-                return Storage::download($file->path, $file->filename);
-            } elseif ($file->remaining_downloads > 0) {
-                return Storage::download($file->path, $file->filename);
+            if ($file->remaining_downloads == 0) { // if the file has been downloaded the maximum number of times
+                $file->delete(); // delete it from the metadata database - files are only really "deleted" when they expire or are deleted by hand to prevent weird race conditions
+                return Storage::download($file->path, $file->filename); // download the file
+            } elseif ($file->remaining_downloads > 0) { // if it's not the last download
+                return Storage::download($file->path, $file->filename); //download the file
             }
         }
     }
 
+    // showDownloadPage - queries file metadata and returns the download page view
     public function showDownloadPage($fileuuid, $filekey)
     {
-        $now = new \DateTime();
-        $file = Files::where('file_uuid', '=', $fileuuid)->where('download_key', '=', $filekey)->firstOrFail();
-        if ($file->expires_at <= $now)
-            return view("download", ['File' => $file]);
-        else
-            abort(404);
+        $now = new \DateTime(); // get the current time
+        $file = Files::where('file_uuid', '=', $fileuuid)->where('download_key', '=', $filekey)->firstOrFail(); // query the provided file UUID and download key, if it's not found 404. We don't need to do any additional querying for if it still has downloads available, because the record will no longer exist since they're deleted when it hits the maximum number of downloads.
+        if ($file->expires_at <= $now) // if the file hasn't expired yet
+            return view("download", ['File' => $file]); // return the download page view
+        else // if it has expired
+            abort(404); // return a 404
     }
 
+    // showUploadPage
     public function showUploadPage(Request $request)
     {
+
         $now = new \DateTime();
 
         if (Auth::check()) {
