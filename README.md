@@ -12,6 +12,7 @@
 en0 Upload was inspired by Firefox Send, but supports OAuth through Laravel Socialite and can easily be adapted to
 nearly any OAuth provider. By default, this repository uses GitLab OAuth to authenticate with the en0 GitLab environment.
 By default Upload uses Laravel's `local` storage driver, but on our environment the `storage/uploads` folder is an NFS mount.
+Upload should be functional out of the box using S3 just by changing the storage driver to S3.
 
 ## Features
 
