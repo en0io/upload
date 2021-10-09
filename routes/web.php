@@ -13,12 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'FileController@showUploadPage');
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/', 'FileController@showUploadPage')->name('home');
 
 Route::get('login/gitlab', 'GitLabAuthentication@gitlabLogin')->name('login');
 Route::get('login/gitlab/callback', 'GitLabAuthentication@handlegitlabCallback');

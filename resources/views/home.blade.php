@@ -9,7 +9,12 @@
                     en0 Upload
                 </div>
                 <div class="links">
-                    <a href="/login/gitlab">log in</a>
+                    @if(env('AUTH_GITLAB'))
+                        <p><a class="text-white" href="/login/gitlab">log in with GitLab</a></p>
+                    @endif
+                    @if(env('AUTH_LOCAL'))
+                        <p><a class="text-white" href="/login">log in</a></p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -79,7 +84,8 @@
                                            data-filename="{{$File->filename}}"
                                            data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}
                                                "></i>
-                                        <a href="{{route('processdownload', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"><i class="bi bi-download"></i>
+                                        <a href="{{route('processdownload', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"><i
+                                                class="bi bi-download"></i>
                                         </a>
                                         <a class="action-delete-file"
                                            href="{{URL::signedRoute('userDeleteFile', ['fileuuid' => $File->file_uuid])}}"
