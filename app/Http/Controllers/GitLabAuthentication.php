@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\RouteServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
@@ -14,6 +16,7 @@ class GitLabAuthentication extends Controller
     {
         return Socialite::driver('gitlab')->scopes(['read_user'])->redirect();
     }
+
     public function handlegitlabCallback()
     {
         $userSocial = Socialite::driver('gitlab')->user();
@@ -32,24 +35,31 @@ class GitLabAuthentication extends Controller
             return redirect('/');
 
         } else {
-            $newuser = new User();
-            $newuser->gitlab_id=$userSocial->id;
-            $newuser->name = $userSocial->name;
-            $newuser->email = $userSocial->email;
-            $newuser->save();
-            $user = User::where(['gitlab_id' => $userSocial->id])->first();
-            Auth::login($user);
-            return redirect('/');
+            if (User::where('email', '=', $userSocial->email)) {
+                $data=array();
+                return response()
+                    ->view('oauth-error', $data, 400);
+            } else {
+                $newuser = new User();
+                $newuser->gitlab_id = $userSocial->id;
+                $newuser->name = $userSocial->name;
+                $newuser->email = $userSocial->email;
+                $newuser->save();
+                $user = User::where(['gitlab_id' => $userSocial->id])->first();
+                Auth::login($user);
+                return redirect(RouteServiceProvider::HOME);
+            }
+
         }
 
     }
+
     public function logout()
     {
         Auth::logout();
         return redirect('/');
 
     }
-
 
 
 }
