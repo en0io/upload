@@ -31,6 +31,11 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             FileController::fileCleanup();
         })->everyMinute();
+
+        // task to remove orphan files
+        $schedule->call(function () {
+            FileController::purgeOrphanFiles();
+        })->hourly();
     }
 
     /**

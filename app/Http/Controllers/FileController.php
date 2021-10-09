@@ -113,5 +113,17 @@ class FileController extends Controller
         }
     }
 
+    // scheduled task to remove orphaned files
+    public static function purgeOrphanFiles()
+    {
+        $files = Storage::files('uploads');
+        foreach ($files as $file) {
+            $dbFile = Files::where('path', '=', $file)->first();
+            if (!$dbFile) {
+                Storage::delete($file->path);
+                echo 'Deleted orphaned file ' . $file;
+            }
+        }
+    }
 
 }
