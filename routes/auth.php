@@ -59,8 +59,11 @@ if (env('AUTH_LOCAL')) {
 
     Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
         ->middleware('auth');
-
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->middleware('auth')
-        ->name('logout');
 }
+if (env('AUTH_GITLAB')) {
+    Route::get('login/gitlab', 'GitLabAuthentication@gitlabLogin')->name('login-gitlab');
+    Route::get('login/gitlab/callback', 'GitLabAuthentication@handlegitlabCallback');
+
+}
+Route::get('logout', 'GitLabAuthentication@logout')->name('logout');
+
