@@ -82,8 +82,7 @@
                                     <td>
                                         <i class="bi bi-clipboard copylink" title="click to copy download URL"
                                            data-filename="{{$File->filename}}"
-                                           data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}
-                                               "></i>
+                                           data-url="{{route('downloadpage', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"></i>
                                         <a href="{{route('processdownload', ['fileuuid' => $File->file_uuid,'filekey'=>$File->download_key])}}"><i
                                                 class="bi bi-download"></i>
                                         </a>
