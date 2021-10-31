@@ -39,6 +39,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+	$alloweddomains = json_decode(env('AUTH_LOCAL_EMAIL_DOMAIN'));
+
+	if (is_array($alloweddomains) && count($alloweddomains) >= 1 &&
+		!in_array( explode('@',$email)[1], $alloweddomains )) {
+		abort(403);
+	}
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
