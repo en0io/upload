@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -39,23 +39,24 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-	$alloweddomains = json_decode(env('AUTH_LOCAL_EMAIL_DOMAIN'));
+        $alloweddomains = explode(",", env('AUTH_LOCAL_EMAIL_DOMAIN'));
 
-	if (is_array($alloweddomains) && count($alloweddomains) >= 1 &&
-		!in_array( explode('@',$email)[1], $alloweddomains )) {
-		abort(403);
-	}
+        if (is_array($alloweddomains) && count($alloweddomains) >= 1 &&
+            !in_array(explode('@', $request->email)[1], $alloweddomains)) {
+            abort(403, "Your email is not permitted to register.");
+        } else {
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-        event(new Registered($user));
+            event(new Registered($user));
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+            return redirect(RouteServiceProvider::HOME);
+        }
     }
 }
